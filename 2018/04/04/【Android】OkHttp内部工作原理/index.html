@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            【Android】OkHttp内部工作原理 | 
+        
+        vecrates.cn
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="blogger">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #70acb1;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #5a92af !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #5a92af !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #5a92af !important;
+  }
+
+  .toTop {
+    background: #59606d !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #59606d;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #59606d;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #59606d;
+  }
+
+  .post-toc a:hover {
+    color: #70acb1;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F6F6F6;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="vecrates.cn">
+    <meta name="msapplication-starturl" content="http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="vecrates.cn">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="WB9KAvlwYg0aM7u4nHFRKeL_vSIEsPIcxgxhCFtJfNM" />
+    <meta name="baidu-site-verification" content="5ySrkHIIsn" />
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="【Android】OkHttp内部工作原理 | vecrates.cn">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="blogger">
+    
+
+    
+        <meta property="article:published_time" content="Wed Apr 04 2018 22:16:52 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 22 2018 10:58:26 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/index.html",
+    "headline": "【Android】OkHttp内部工作原理",
+    "datePublished": "Wed Apr 04 2018 22:16:52 GMT+0800",
+    "dateModified": "Sun Apr 22 2018 10:58:26 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "vecrates",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "举杯邀明月，同笑万古痴"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "vecrates.cn",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "blogger",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#特点"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">特点</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">使用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工作过程"><span class="post-toc-number">2.</span> <span class="post-toc-text">工作过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建-OkHttpClient"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">创建 OkHttpClient</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建-Request"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">创建 Request</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#网络请求"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">网络请求</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#ConnectInterceptor"><span class="post-toc-number">2.0.3.1.</span> <span class="post-toc-text">ConnectInterceptor</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#CallServerInterceptor"><span class="post-toc-number">2.0.3.2.</span> <span class="post-toc-text">CallServerInterceptor</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考或拓展"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">参考或拓展</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/vateral-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                【Android】OkHttp内部工作原理
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>vecrates</strong>
+        <span>4月 04, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=【Android】OkHttp内部工作原理&url=http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/index.html&pic=http://www.vecrates.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=vecrates.cn&title=【Android】OkHttp内部工作原理&summary=blogger&pics=http://www.vecrates.cn/img/favicon.png&url=http://www.vecrates.cn/2018/04/04/【Android】OkHttp内部工作原理/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p><strong>前言：</strong>本文的写作主要目的有两个，一方面是为了加强对于 OkHttp 的理解，巩固对已学知识，另一方面是为了在往后遗忘时便于回顾。由于笔者的学习资源来源于网络博客，所以可能会有一些内容跟其他文章相似，或者引用了其他文章的内容（文中已注明）。首先放两个推荐阅读的文章：</p>
+<ul>
+<li><a href="http://yourbay.me/all-about-tech/2017/03/29/okhttp-inner-logic/" target="_blank" rel="noopener">OkHttp实现原理</a></li>
+<li><a href="https://blog.piasy.com/2016/07/11/Understand-OkHttp/" target="_blank" rel="noopener">拆轮子系列：拆 OkHttp</a></li>
+</ul>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>支持 Http2/SPDY 协议</li>
+<li>连接池复用，减少延迟</li>
+<li>缓存响应信息减少重复请求</li>
+<li>支持 GZIP 压缩</li>
+</ul>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ol>
+<li>创建 OkHttpClient 对象。OkHttpClient 大部分时候都只需创建一个，以便可以最大限度地资源复用（每个实例中都有连接池、线程池、缓存等）。</li>
+<li>创建 Request 对象。Request 代表请求报文，可以通过它设置请求Url、请求方法、请求体等。</li>
+<li>创建 Call 对象，通过 Call 发起网络请求。可通过 Call 对象发起同步或异步请求。</li>
+<li>处理响应结果。</li>
+</ol>
+<pre><code class="java">OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder()
+    .url(url)
+    .build();
+client.newCall(request).enqueue(new Callback() {
+    @Override
+    public void onFailure(Call call, IOException e) {
+        Log.v(TAG, &quot;**onFailure**&quot; + e.getMessage());
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        Log.v(TAG, &quot;**onResponse**&quot; + response.body().string());
+    }
+});
+</code></pre>
+<p>上面的代码进行了一个简单的 GET 请求，下文将描述这一请求的内部工作流程。</p>
+<h2 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h2><h4 id="创建-OkHttpClient"><a href="#创建-OkHttpClient" class="headerlink" title="创建 OkHttpClient"></a>创建 OkHttpClient</h4><p>OkHttpClient 类使用了建造者模式，可以通过其内部类 Builder 对其成员变量进行配置。OkHttpClient 只对外提供了一个无参的构造方法，但内部拥有另外一个以 default 修饰的构造方法，当使用<code>new OkHttpClient</code> 时通过内部类 Builder 为其提供了默认值，下面是 OkHttpClient 类的一部分成员变量：</p>
+<pre><code class="java">  //OkHttpClient.java
+  final Dispatcher dispatcher;
+  final List&lt;Protocol&gt; protocols;
+  final List&lt;Interceptor&gt; interceptors;
+  final List&lt;Interceptor&gt; networkInterceptors;
+  final CookieJar cookieJar;
+  final @Nullable Cache cache;
+  final SocketFactory socketFactory;
+  final ConnectionPool connectionPool;
+  final Dns dns;
+  final int connectTimeout;
+  final int readTimeout;
+  final int writeTimeout;
+  ...
+</code></pre>
+<h4 id="创建-Request"><a href="#创建-Request" class="headerlink" title="创建 Request"></a>创建 Request</h4><p>Request 类同样使用了建造者模式，可通过其内部类 Builder 对请求体进行配置。</p>
+<pre><code class="java">public static class Builder {
+    HttpUrl url;
+    String method;
+    Headers.Builder headers;
+    RequestBody body;
+    Object tag;
+    ...
+    public Builder url(String url) {
+      if (url == null) throw new NullPointerException(&quot;url == null&quot;);
+
+      // Silently replace web socket URLs with HTTP URLs.
+      if (url.regionMatches(true, 0, &quot;ws:&quot;, 0, 3)) {
+        url = &quot;http:&quot; + url.substring(3);
+      } else if (url.regionMatches(true, 0, &quot;wss:&quot;, 0, 4)) {
+        url = &quot;https:&quot; + url.substring(4);
+      }
+
+      HttpUrl parsed = HttpUrl.parse(url);
+      if (parsed == null) throw new IllegalArgumentException(&quot;unexpected url: &quot; + url);
+      return url(parsed);
+    }
+    ...
+    public Request build() {
+      if (url == null) throw new IllegalStateException(&quot;url == null&quot;);
+      return new Request(this);
+    }
+    ...
+}
+</code></pre>
+<h4 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h4><p>OkHttp 支持同步和异步两种请求，总的来说，同步会直接执行，而异步最后会使用线程池来执行，但不管是同步还是异步，最后都会通过 <code>getResponseWithInterceptorChain()</code> 方法来执行，下图是同步请求和异步请求执行到<code>getResponseWithInterceptorChain()</code> 的区别，后文只描述了异步执行的过程。</p>
+<p> <img src="OkHttp 同步和异步.png" alt="OkHttp 同步和异步"></p>
+<p>OkHttpClient 对象生成 Call 对象时，最终内部调用的是 RealCall，总体来说 <code>client.newCall(request).equeue(callback)</code> 分为两步：</p>
+<ol>
+<li>OkHttpClient 接收 Request 对象，生成 RealCall 对象。RealCall 实现了 Call 接口，在同步中它是被执行的对象，而在异步中 AsyncCall 时被执行的对象，AsncCall 间接实现了 Runnable 接口，后者是前者的内部类。</li>
+<li>RealCall 把实现了回调接口 Callback 的对象加入到队列当中。Callback 接口定义了两个方法 <code>onFailure()</code> 和 <code>onResponse()</code> ，在请求成功或失败时会被调用。</li>
+</ol>
+<pre><code class="java">//AsyncCall.java
+@Override protected void execute() {
+    boolean signalledCallback = false;
+    try {
+        Response response = getResponseWithInterceptorChain(); //这里是真正进行网络请求的入口
+        if (retryAndFollowUpInterceptor.isCanceled()) {
+            signalledCallback = true;
+            responseCallback.onFailure(RealCall.this, new IOException(&quot;Canceled&quot;)); //请求失败
+        } else {
+            signalledCallback = true;
+            responseCallback.onResponse(RealCall.this, response); //请求成功
+        }
+    } catch (IOException e) {
+        if (signalledCallback) {
+            // Do not signal the callback twice!
+            Platform.get().log(INFO, &quot;Callback failure for &quot; + toLoggableString(), e);
+        } else {
+            eventListener.callFailed(RealCall.this, e);
+            responseCallback.onFailure(RealCall.this, e);
+        }
+    } finally {
+        client.dispatcher().finished(this); //这里最终会调用 promoteCall()，promoteCall 将从就绪队列中取出新的 AsyncCall 交给线程池执行。
+    }
+ }
+}
+</code></pre>
+<p>下面的代码是 AsyncCall#execute() 代码，大体的逻辑是：首先使用<code>getResponseWithInterceptorChain()</code> 进行网络请求，根据响应结果进行回调，最后取出新的 AsyncCall 执行。</p>
+<p>进入 <code>RealCall#getResponseWithInterceptorChain()</code>：</p>
+<pre><code class="java">//RealCall.java
+Response getResponseWithInterceptorChain() throws IOException {
+    // Build a full stack of interceptors.
+    List&lt;Interceptor&gt; interceptors = new ArrayList&lt;&gt;();
+    interceptors.addAll(client.interceptors());
+    interceptors.add(retryAndFollowUpInterceptor);
+    interceptors.add(new BridgeInterceptor(client.cookieJar()));
+    interceptors.add(new CacheInterceptor(client.internalCache()));
+    interceptors.add(new ConnectInterceptor(client));
+    if (!forWebSocket) {
+        interceptors.addAll(client.networkInterceptors());
+    }
+    interceptors.add(new CallServerInterceptor(forWebSocket));
+
+    Interceptor.Chain chain = new RealInterceptorChain(interceptors, null, null, null, 0,
+                                                       originalRequest, this, eventListener, client.connectTimeoutMillis(),
+                                                       client.readTimeoutMillis(), client.writeTimeoutMillis());
+
+    return chain.proceed(originalRequest);
+}
+</code></pre>
+<p>OkHttp 的请求使用了责任链模式，把缓存、建立连接、网络请求等不同的功能分配给不同的 Interceptor，最后把所有的 Interceptor 连成一条链，按顺序去执行，当最后一个 Interceptor 执行完毕之后逐级地返回响应结果，所有的 Interceptor 功能如下（<em>来源：<a href="http://yourbay.me/all-about-tech/2017/03/29/okhttp-inner-logic/" target="_blank" rel="noopener">OkHttp 实现原理</a></em>）：</p>
+<blockquote>
+<ul>
+<li><strong>用户自定义的 Interceptor</strong> 通过<code>client.interceptors()</code>拿到整个自定义列表。上面提到的 HttpLoggingInterceptor 就是在这个列表中。</li>
+<li><strong>RetryAndFollowUpInterceptor</strong> 主要作用就是处理失败之后重试。比如处理未授权、PROXY 授权等等。OkHttpClient.Builder 中的 proxyAuthenticator 还有 authenticator 等都会在这里被调用。Chain 里面的 StreamAllocation 在这里开始实例化，前面都是 null。</li>
+<li><strong>BridgeInterceptor</strong> 字面意思是桥梁连接应用和网络。主要会完善(添加)请求的 Header、处理 cookie、自动解压 Gzip 等等。</li>
+<li><strong>CacheInterceptor</strong> 主要作用是缓存 Response。官方推荐在 OkHttpClient.Builder 中使用<code>okhttp3.Cache</code>。</li>
+<li><strong>ConnectInterceptor</strong> 主要是生成网络连接。调用 StreamAllocation.newStream，分配一个复用的 Connection。然后以 HttpStream 和 RealConnection 的形式交给下一个 Interceptor (即 CallServerInterceptor )。其中在 HttpStream 中来确定使用 HTTP1x 还是 HTTP/2 ( HTTP/2 and SPDY )协议。</li>
+<li><strong>CallServerInterceptor</strong> 请求服务器。与服务器进行交互。获取数据并且封装起来返回给 ConnectInterceptor。然后逐级分发回去。最后 <code>getResponseWithInterceptorChain()</code> 接受数据，返回给用户。</li>
+</ul>
+</blockquote>
+<p>进入 <code>RealInterceptorChain#proceed()</code>：</p>
+<pre><code class="java">//RealInterceptorChain.java
+public Response proceed(Request request, StreamAllocation streamAllocation, HttpCodec httpCodec,
+    RealConnection connection) throws IOException {
+  if (index &gt;= interceptors.size()) throw new AssertionError();
+
+  calls++;
+
+  // If we already have a stream, confirm that the incoming request will use it.
+  if (this.httpCodec != null &amp;&amp; !this.connection.supportsUrl(request.url())) {
+    throw new IllegalStateException(&quot;network interceptor &quot; + interceptors.get(index - 1)
+        + &quot; must retain the same host and port&quot;);
+  }
+
+  // If we already have a stream, confirm that this is the only call to chain.proceed().
+  if (this.httpCodec != null &amp;&amp; calls &gt; 1) {
+    throw new IllegalStateException(&quot;network interceptor &quot; + interceptors.get(index - 1)
+        + &quot; must call proceed() exactly once&quot;);
+  }
+
+  // Call the next interceptor in the chain.
+  RealInterceptorChain next = new RealInterceptorChain(interceptors, streamAllocation, httpCodec,
+      connection, index + 1, request, call, eventListener, connectTimeout, readTimeout,
+      writeTimeout); //index 是列表的索引，从 0 开始
+  Interceptor interceptor = interceptors.get(index); //获得具体的 Interceptor
+  Response response = interceptor.intercept(next); //调用具体的 Interceptor 的方法
+
+  // Confirm that the next interceptor made its required call to chain.proceed().
+  if (httpCodec != null &amp;&amp; index + 1 &lt; interceptors.size() &amp;&amp; next.calls != 1) {
+    throw new IllegalStateException(&quot;network interceptor &quot; + interceptor
+        + &quot; must call proceed() exactly once&quot;);
+  }
+
+  // Confirm that the intercepted response isn&#39;t null.
+  if (response == null) {
+    throw new NullPointerException(&quot;interceptor &quot; + interceptor + &quot; returned null&quot;);
+  }
+
+  if (response.body() == null) {
+    throw new IllegalStateException(
+        &quot;interceptor &quot; + interceptor + &quot; returned a response with no body&quot;);
+  }
+
+  return response;
+}
+</code></pre>
+<p>这里从0开始取出拦截器列表中具体的 Interceptor，调用其 <code>intercepte()</code> 方法， 当获得响应结果之后逐级地返回。</p>
+<p>OkHttp 拥有的 Interceptor 如上文所述，下文将只对 ConnectionInterceptor 和 CallServcerInterceptor 进行说明。</p>
+<h5 id="ConnectInterceptor"><a href="#ConnectInterceptor" class="headerlink" title="ConnectInterceptor"></a>ConnectInterceptor</h5><p>ConnectInterceptor 的工作是建立网络连接、复用可用连接等，下面是 ConnectInterceptor 提供的唯一的非构造方法，这个方法也将被责任链中上一个 Interceptor 调用。</p>
+<pre><code class="java">//ConnectInterceptor.java
+@Override public Response intercept(Chain chain) throws IOException {
+    RealInterceptorChain realChain = (RealInterceptorChain) chain;
+    Request request = realChain.request();
+    StreamAllocation streamAllocation = realChain.streamAllocation();
+
+    // We need the network to satisfy this request. Possibly for validating a conditional GET.
+    boolean doExtensiveHealthChecks = !request.method().equals(&quot;GET&quot;);
+    HttpCodec httpCodec = streamAllocation.newStream(client, chain, doExtensiveHealthChecks);
+    RealConnection connection = streamAllocation.connection();
+
+    return realChain.proceed(request, streamAllocation, httpCodec, connection);
+}
+</code></pre>
+<p><code>ConnectInterceptor#intercept()</code>基本上通过 StreamAllocation 来建立、复用网络连接等功能，下面是StreamAllocation 的介绍（<em>来源 <a href="https://my.oschina.net/alexwan/blog/886708" target="_blank" rel="noopener">深入理解OkHttp3（3）：Connections</a></em>）：</p>
+<blockquote>
+<p>StreamAllocation 类似中介者模式，协调 Connections、Stream 和 Call 三者之间的关系。每个 Call 在 Application 层<code>RetryAndFollowUpInterceptor</code>实例化一个<code>StreamAllocation</code>。</p>
+<p>相同 Address（相同的Host与端口）可以共用相同的连接 RealConnection。</p>
+<ol>
+<li>StreamAllocation 通过 Address，从连接池 ConnectionPools 中取出有效的 RealConnection，与远程服务器建立 Socket 连接。</li>
+<li>在处理响应结束后或出现网络异常时，释放 Socket 连接。</li>
+<li>每个 RealConnection 都持有对 StreamAllocation 的弱引用，用于连接闲置状态的判断。</li>
+</ol>
+</blockquote>
+<p>进入<code>StreamAllocation#newStream</code>：</p>
+<pre><code class="java">//StreamAllocation.java
+public HttpCodec newStream(
+    OkHttpClient client, Interceptor.Chain chain, boolean doExtensiveHealthChecks) {
+    int connectTimeout = chain.connectTimeoutMillis();
+    int readTimeout = chain.readTimeoutMillis();
+    int writeTimeout = chain.writeTimeoutMillis();
+    int pingIntervalMillis = client.pingIntervalMillis();
+    boolean connectionRetryEnabled = client.retryOnConnectionFailure();
+
+    try {
+        RealConnection resultConnection = findHealthyConnection(connectTimeout, readTimeout,
+                                                                writeTimeout, pingIntervalMillis, connectionRetryEnabled, doExtensiveHealthChecks); //找到可复用的 RealConnection
+        HttpCodec resultCodec = resultConnection.newCodec(client, chain, this); 
+
+        synchronized (connectionPool) {
+            codec = resultCodec;
+            return resultCodec;
+        }
+    } catch (IOException e) {
+        throw new RouteException(e);
+    }
+}
+</code></pre>
+<p><code>newStream()</code> 首先通过<code>findHealthyConnection()</code>找到健全可用的连接，再根据协议生成 HttpCodec，HttpCodec 是什么？（来源：<a href="https://blog.piasy.com/2016/07/11/Understand-OkHttp/" target="_blank" rel="noopener">拆轮子系列：拆 OkHttp</a>）</p>
+<blockquote>
+<p>它是对 HTTP 协议操作的抽象，有两个实现：<code>Http1Codec</code> 和 <code>Http2Codec</code>，顾名思义，它们分别对应 HTTP/1.1 和 HTTP/2 版本的实现。</p>
+<p>在 <code>Http1Codec</code> 中，它利用 <a href="https://github.com/square/okio/" target="_blank" rel="noopener">Okio</a> 对 <code>Socket</code> 的读写操作进行封装，Okio 以后有机会再进行分析，现在让我们对它们保持一个简单地认识：<strong>它对 <code>java.io</code> 和 <code>java.nio</code> 进行了封装，让我们更便捷高效的进行 IO 操作。</strong></p>
+</blockquote>
+<p>进入<code>StreamAllocation#findHealthyConnection()</code> ，这里不贴代码，概括性地说，该方法主要做了两件事：</p>
+<ul>
+<li>调用<code>StreamAllocation#findConnection()</code>，寻找可复用的连接（也有可能是新创建的）</li>
+<li>通过<code>RealConnection#isHealthy()</code>判断该连接是否健全可用</li>
+</ul>
+<p>首先看第一点，下面是<code>findConnection()</code>部分主要的代码：</p>
+<pre><code class="java">  private RealConnection findConnection(int connectTimeout, int readTimeout, int writeTimeout,
+      int pingIntervalMillis, boolean connectionRetryEnabled) throws IOException {
+      ...
+      synchronized (connectionPool) {
+          if (released) throw new IllegalStateException(&quot;released&quot;);
+          if (codec != null) throw new IllegalStateException(&quot;codec != null&quot;);
+          if (canceled) throw new IOException(&quot;Canceled&quot;);
+          ...
+          if (this.connection != null) {
+            // We had an already-allocated connection and it&#39;s good.
+            result = this.connection;
+            releasedConnection = null;
+          }
+          ...
+          if (result == null) {
+            // 从连接池中获取 connection
+            Internal.instance.get(connectionPool, address, this, null);
+            if (connection != null) {
+              foundPooledConnection = true;
+              result = connection;
+            } else {
+              selectedRoute = route;
+            }
+          }
+          ...
+          if (result != null) {
+             // If we found an already-allocated or pooled connection, we&#39;re done.
+              return result;
+      }
+       ...
+      synchronized (connectionPool) {
+          if (canceled) throw new IOException(&quot;Canceled&quot;);
+
+          if (newRouteSelection) {
+            // Now that we have a set of IP addresses, make another attempt at getting a         connection from the pool. This could match due to connection coalescing.
+            List&lt;Route&gt; routes = routeSelection.getAll();
+            for (int i = 0, size = routes.size(); i &lt; size; i++) {
+              Route route = routes.get(i);
+              Internal.instance.get(connectionPool, address, this, route);
+              if (connection != null) {
+                foundPooledConnection = true;
+                result = connection;
+                this.route = route;
+                break;
+              }
+            }
+          }
+
+          if (!foundPooledConnection) {
+            if (selectedRoute == null) {
+              selectedRoute = routeSelection.next();
+            }
+
+            // Create a connection and assign it to this allocation immediately. This makes it possible
+            // for an asynchronous cancel() to interrupt the handshake we&#39;re about to do.
+            route = selectedRoute;
+            refusedStreamCount = 0;
+              //创建新的连接
+            result = new RealConnection(connectionPool, selectedRoute);
+            acquire(result, false);
+         }
+    }
+    ...
+}
+</code></pre>
+<p>方法首先尝试从连接池中获取已存在的、具有相同地址的、请求数量未超上限的 RealConnection 返回，如果没有，将创建一个新的连接对象。</p>
+<p>再看 <code>RealConnection#isHeathy()</code>：</p>
+<pre><code class="java">public boolean isHealthy(boolean doExtensiveChecks) {
+    if (socket.isClosed() || socket.isInputShutdown() || socket.isOutputShutdown()) {
+        return false;
+    }
+
+    if (http2Connection != null) {
+        return !http2Connection.isShutdown();
+    }
+
+    if (doExtensiveChecks) {
+        try {
+            int readTimeout = socket.getSoTimeout();
+            try {
+                socket.setSoTimeout(1);
+                if (source.exhausted()) {
+                    return false; // Stream is exhausted; socket is closed.
+                }
+                return true;
+            } finally {
+                socket.setSoTimeout(readTimeout);
+            }
+        } catch (SocketTimeoutException ignored) {
+            // Read timed out; socket is good.
+        } catch (IOException e) {
+            return false; // Couldn&#39;t read; socket is closed.
+        }
+    }
+</code></pre>
+<p>总结得出，以下情况的 RealConnection 会被认为是不健康的：</p>
+<ul>
+<li>Socket 关闭</li>
+<li>Socket 输入/输出流关闭</li>
+<li>Http2Connection 处于 shutdown 状态</li>
+<li>post 请求下输入流 Source 处于 exhuasted 状态</li>
+</ul>
+<h5 id="CallServerInterceptor"><a href="#CallServerInterceptor" class="headerlink" title="CallServerInterceptor"></a>CallServerInterceptor</h5><p>CallServerInterceptor 是责任链的最后一个 Interceptor，它的职责是发起网络请求。</p>
+<p><code>CallServerInterceptor#intercept()</code>：</p>
+<pre><code class="java">  @Override public Response intercept(Chain chain) throws IOException {
+    ...
+    if (HttpMethod.permitsRequestBody(request.method()) &amp;&amp; request.body() != null) {
+      ...
+      if (responseBuilder == null) {
+        // Write the request body if the &quot;Expect: 100-continue&quot; expectation was met.
+        realChain.eventListener().requestBodyStart(realChain.call());
+        long contentLength = request.body().contentLength();
+        CountingSink requestBodyOut =
+            new CountingSink(httpCodec.createRequestBody(request, contentLength));
+        BufferedSink bufferedRequestBody = Okio.buffer(requestBodyOut); //使用 Okio
+
+        request.body().writeTo(bufferedRequestBody);
+        bufferedRequestBody.close();
+        realChain.eventListener()
+            .requestBodyEnd(realChain.call(), requestBodyOut.successfulCount);
+      } else if (!connection.isMultiplexed()) {
+        // If the &quot;Expect: 100-continue&quot; expectation wasn&#39;t met, prevent the HTTP/1 connection
+        // from being reused. Otherwise we&#39;re still obligated to transmit the request body to
+        // leave the connection in a consistent state.
+        streamAllocation.noNewStreams();
+      }
+    }
+
+    httpCodec.finishRequest();
+
+    if (responseBuilder == null) {
+      realChain.eventListener().responseHeadersStart(realChain.call());
+      responseBuilder = httpCodec.readResponseHeaders(false);
+    }
+
+    Response response = responseBuilder
+        .request(request)
+        .handshake(streamAllocation.connection().handshake())
+        .sentRequestAtMillis(sentRequestMillis)
+        .receivedResponseAtMillis(System.currentTimeMillis())
+        .build();
+    ...
+    return response;
+  }
+</code></pre>
+<p>代码的大概逻辑是利用 HttpCodec 对象写入请求的 Header、Body，然后接收响应的结果进行处理返回。这里引用其他文章的解读（来源：<a href="https://blog.piasy.com/2016/07/11/Understand-OkHttp/" target="_blank" rel="noopener">拆轮子系列：拆 OkHttp</a>）：</p>
+<blockquote>
+<p>核心工作都由 <code>HttpCodec</code> 对象完成，而 <code>HttpCodec</code> 实际上利用的是 Okio，而 Okio 实际上还是用的 <code>Socket</code>，所以没什么神秘的，只不过一层套一层，层数有点多。</p>
+</blockquote>
+<h3 id="参考或拓展"><a href="#参考或拓展" class="headerlink" title="参考或拓展"></a>参考或拓展</h3><ul>
+<li><a href="http://yourbay.me/all-about-tech/2017/03/29/okhttp-inner-logic/" target="_blank" rel="noopener">OkHttp实现原理</a></li>
+<li><a href="https://blog.piasy.com/2016/07/11/Understand-OkHttp/" target="_blank" rel="noopener">拆轮子系列：拆 OkHttp</a></li>
+<li><a href="https://my.oschina.net/alexwan/blog/886708" target="_blank" rel="noopener">深入理解OkHttp3（3）：Connections</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/07/31/【小程序】实现复用及造轮子入门/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/01/06/【Android笔记】Service 启动过程/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="vecrates's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        vecrates@gmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="vecrates@gmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/Java/">Java<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/编程基础/">编程基础<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="图库">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                图库
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>vecrates.cn
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

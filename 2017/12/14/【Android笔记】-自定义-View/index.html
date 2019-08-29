@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            【Android】自定义 View | 
+        
+        vecrates.cn
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="blogger">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #70acb1;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #5a92af !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #5a92af !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #5a92af !important;
+  }
+
+  .toTop {
+    background: #59606d !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #59606d;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #59606d;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #59606d;
+  }
+
+  .post-toc a:hover {
+    color: #70acb1;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F6F6F6;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="vecrates.cn">
+    <meta name="msapplication-starturl" content="http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="vecrates.cn">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="WB9KAvlwYg0aM7u4nHFRKeL_vSIEsPIcxgxhCFtJfNM" />
+    <meta name="baidu-site-verification" content="5ySrkHIIsn" />
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="【Android】自定义 View | vecrates.cn">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="blogger">
+    
+
+    
+        <meta property="article:published_time" content="Thu Dec 14 2017 00:00:00 GMT+0800">
+        <meta property="article:modified_time" content="Thu Jan 04 2018 16:14:14 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/index.html",
+    "headline": "【Android】自定义 View",
+    "datePublished": "Thu Dec 14 2017 00:00:00 GMT+0800",
+    "dateModified": "Thu Jan 04 2018 16:14:14 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "vecrates",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "举杯邀明月，同笑万古痴"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "vecrates.cn",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "blogger",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对现有控件进行扩展"><span class="post-toc-number">1.</span> <span class="post-toc-text">对现有控件进行扩展</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建复合控件"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">创建复合控件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建全新控件"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">创建全新控件</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/vateral-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                【Android】自定义 View
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>vecrates</strong>
+        <span>12月 14, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=【Android】自定义 View&url=http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/index.html&pic=http://www.vecrates.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=vecrates.cn&title=【Android】自定义 View&summary=blogger&pics=http://www.vecrates.cn/img/favicon.png&url=http://www.vecrates.cn/2017/12/14/【Android笔记】-自定义-View/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <pre><code> 自定义 View，通常通过重写 View 中的部分方法实现，在 View 中比较重要的回调方法，可根据需要重写其中的方法:
+</code></pre><ul>
+<li><p>onFinishInflate()，加载完 xml 文件回调</p>
+</li>
+<li><p>onSizeChanged()，view大小改变时回调</p>
+</li>
+<li><p>onMeasure()，测量View大小位置</p>
+</li>
+<li><p>onLayout()，确定显示位置</p>
+</li>
+<li><p>onTouchEvent()，触摸事件回调</p>
+<p>​</p>
+<p>​实现自定义 View 的途径：</p>
+</li>
+<li>对现有控件进行扩展</li>
+<li>对现有控件进行组合</li>
+<li>重写全新控件</li>
+</ul>
+<h1 id="对现有控件进行扩展"><a href="#对现有控件进行扩展" class="headerlink" title="对现有控件进行扩展"></a>对现有控件进行扩展</h1><p>实现过程：</p>
+<p>  1). 继承现有控件</p>
+<p>  2). 重写 onDraw() 方法</p>
+<p>一个扩展 TextView 控件，实现渐变样式的 TextView，效果图</p>
+<p> <img src="5892091-9a302700f1c31928.png" alt="5892091-9a302700f1c31928"></p>
+<p>实现代码：</p>
+<pre><code class="java">/**
+ * author: vecrates
+ */
+public class MyTextView extends TextView {
+
+    private int mViewWidth;
+    private int mViewHeight;
+    private LinearGradient mLinearGradient;
+    private Matrix mMatrix;
+    private int mTranslate = 0;
+
+    public MyTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Log.v(&quot;_v&quot;, &quot;onFinishFlate&quot;);
+    }
+
+    /**
+     * 测量view大小及位置
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.v(&quot;_v&quot;, &quot;measureSpec: &quot; + widthMeasureSpec + &quot; &quot; + heightMeasureSpec);
+    }
+
+    /**
+     * 组件大小改变时回调
+     * @param w
+     * @param h
+     * @param oldw
+     * @param oldh
+     */
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        Log.v(&quot;_v&quot;, &quot;onSizeChanged &quot;);
+        if (mViewWidth == 0) {
+            mViewWidth = getMeasuredWidth();
+            mViewHeight = getHeight();;
+            Paint paint = getPaint();  //获得当前绘制的paint对象
+            mLinearGradient = new LinearGradient(0, 0, mViewWidth, mViewHeight,
+                    new int[] {Color.RED, Color.BLUE}, null, Shader.TileMode.CLAMP);
+            paint.setShader(mLinearGradient); //给paint添加linearGradient
+            mMatrix = new Matrix();
+        }
+
+    }
+
+    /**
+     * 绘制view
+     * @param canvas
+     */
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.v(&quot;_v&quot;, &quot;onDraw&quot;);
+        Paint paint = new Paint();
+        paint.setColor(Color.YELLOW);
+        paint.setTextSize(20f);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        canvas.drawRect(0, 0, mViewWidth, mViewHeight, paint);
+        super.onDraw(canvas);
+        if(mMatrix != null) {
+            mTranslate += mViewWidth;
+            if(mTranslate &gt; mViewWidth) {
+                mTranslate = 0;
+            }
+            mMatrix.setTranslate(mTranslate, 0);
+            mLinearGradient.setLocalMatrix(mMatrix);
+            postInvalidateDelayed(100); //刷新UI
+        }
+    }
+
+}
+</code></pre>
+<p>在 xml 中使用自定义 View</p>
+<pre><code class="xml">    &lt;cn.vecrates.androidjinjie.MyTextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:padding=&quot;20dp&quot;
+        android:text=&quot;TextView拓展&quot;
+        android:textSize=&quot;20sp&quot;
+        android:textColor=&quot;@android:color/black&quot;
+        /&gt;
+</code></pre>
+<h3 id="创建复合控件"><a href="#创建复合控件" class="headerlink" title="创建复合控件"></a>创建复合控件</h3><p>实现过程：<br>　　1） 根据需要自定义属性，指定属性名称及类型。<em>通常情况下需要自定义属性来满足创建的控件，但这个是非必须的</em><br>　　2） java 类继承 ViewGroup ，并从 xml 中读取自定义属性的值。<em>这里的 ViewGroup 不单是指 ViewGroup 类，还可以是以ViewGroup类为基类的类</em><br>　　3）根据需要生成子控件，并把获取到的 xml 值赋给相应的 View，把子控件组合生成组合控件。<br>　　4）使用控件 </p>
+<p>简单地实现一个 app 中常用的底部导航栏 </p>
+<p> <img src="5892091-bfe1674063967801.png" alt="5892091-bfe1674063967801"></p>
+<p><em>1）:</em></p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;declare-styleable name=&quot;ButtonBar&quot;&gt;
+        &lt;attr name=&quot;tab1Icon&quot; format=&quot;reference&quot;/&gt;
+        &lt;attr name=&quot;tab2Icon&quot; format=&quot;reference&quot;/&gt;
+        &lt;attr name=&quot;tab1Text&quot; format=&quot;string&quot;/&gt;
+        &lt;attr name=&quot;tab2Text&quot; format=&quot;string&quot;/&gt;
+        &lt;attr name=&quot;tabTextColor&quot; format=&quot;color&quot;/&gt;
+        &lt;attr name=&quot;tabIconWidth&quot; format=&quot;dimension&quot;/&gt;
+        &lt;attr name=&quot;tabIconHeight&quot; format=&quot;dimension&quot;/&gt;
+        &lt;attr name=&quot;tabTextSize&quot; format=&quot;dimension&quot;/&gt;
+        &lt;attr name=&quot;tabBackground&quot; format=&quot;reference|color&quot;/&gt;
+    &lt;/declare-styleable&gt;
+ &lt;/resources&gt;
+</code></pre>
+<p><em>2） 3）：</em></p>
+<pre><code class="java">/**
+ * author: Vecrates.
+ * describe: 此控件简单地仿常用 app 上的底部导航栏
+ */
+public class MyButtonBar extends LinearLayout {
+    // buttonBar 属性
+    private Drawable mTab1Icon;
+    private Drawable mTab2Icon;
+    private String mTab1Text;
+    private String mTab2Text;
+    private int mTabTextColor;
+    private float mTabIconWidth;
+    private float mTabIconHeight;
+    private float mTabTextSize;
+    //此 buttonBar 的子 view 组件
+    private LinearLayout mTab1Layout;
+    private LinearLayout mTab2Layout;
+    private ImageView mTab1ImageView;
+    private ImageView mTab2ImageView;
+    private TextView mTab1TextView;
+    private TextView mTab2TextView;
+
+    private IButtonBarOnClickListener mOnClickListener;
+
+    public MyButtonBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        //从 xml 中获取自定义的属性集
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ButtonBar);
+        //从自定义属性集中获取值，以便为对应的 view 赋值
+        mTab1Icon = ta.getDrawable(R.styleable.ButtonBar_tab1Icon);
+        mTab2Icon = ta.getDrawable(R.styleable.ButtonBar_tab2Icon);
+        mTabIconWidth = ta.getDimension(R.styleable.ButtonBar_tabIconWidth, 10);
+        mTabIconHeight = ta.getDimension(R.styleable.ButtonBar_tabIconHeight, 10);
+
+        mTab1Text = ta.getString(R.styleable.ButtonBar_tab1Text);
+        mTab2Text = ta.getString(R.styleable.ButtonBar_tab2Text);
+        mTabTextColor = ta.getColor(R.styleable.ButtonBar_tabTextColor, 0);
+
+        mTabTextSize = ta.getDimension(R.styleable.ButtonBar_tabTextSize, 10);
+
+        //资源回收，避免重新创建时发生错误
+        ta.recycle();
+        init();
+    }
+
+    private void init() {
+        //创建 view，并把从 xml 文件中获得的值赋给相应的子 view
+        mTab1ImageView = new ImageView(getContext());
+        mTab2ImageView = new ImageView(getContext());
+        mTab1ImageView.setImageDrawable(mTab1Icon);
+        mTab1ImageView.setLayoutParams(new LayoutParams((int)mTabIconWidth, (int)mTabIconHeight));
+        mTab2ImageView.setImageDrawable(mTab2Icon);
+        mTab2ImageView.setLayoutParams(new LayoutParams((int)mTabIconWidth, (int)mTabIconHeight));
+
+        mTab1TextView = new TextView(getContext());
+        mTab2TextView = new TextView(getContext());
+        mTab1TextView.setText(mTab1Text);
+        mTab1TextView.setTextSize(mTabTextSize);
+        mTab1TextView.setTextColor(mTabTextColor);
+        mTab1TextView.setGravity(Gravity.CENTER);
+        mTab2TextView.setText(mTab2Text);
+        mTab2TextView.setTextSize(mTabTextSize);
+        mTab2TextView.setTextColor(mTabTextColor);
+        mTab2TextView.setGravity(Gravity.CENTER);
+
+        mTab1Layout = new LinearLayout(getContext());
+        mTab1Layout.setOrientation(VERTICAL);
+        mTab1Layout.setGravity(Gravity.CENTER_HORIZONTAL);
+        mTab1Layout.addView(mTab1ImageView);
+        mTab1Layout.addView(mTab1TextView);
+        mTab1Layout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //把 tab 的点击转移给外部调用，1表示点击了第一个 tab
+                mOnClickListener.onClick(1);
+            }
+        });
+
+        mTab2Layout = new LinearLayout(getContext());
+        mTab2Layout.setOrientation(VERTICAL);
+        mTab2Layout.setGravity(Gravity.CENTER_HORIZONTAL);
+        mTab2Layout.addView(mTab2ImageView);
+        mTab2Layout.addView(mTab2TextView);
+        mTab2Layout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //把 tab 的点击转移给外部调用，2表示点击了第二个 tab
+                mOnClickListener.onClick(2);
+            }
+        });
+
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        layoutParams.weight = 1;
+        layoutParams.gravity = Gravity.CENTER;
+
+        addView(mTab1Layout, layoutParams);
+        addView(mTab2Layout, layoutParams);
+    }
+
+    /**
+     * 把实现了接口的对象回传
+     * @param listener
+     */
+    public void setButtonBarListener(IButtonBarOnClickListener listener) {
+        mOnClickListener = listener;
+    }
+
+    /**
+     * buttonBar 点击事件接口
+     */
+    interface  IButtonBarOnClickListener {
+        void onClick(int index);
+    }
+
+}
+</code></pre>
+<p><em>4）：</em></p>
+<pre><code>    &lt;cn.vecrates.androidjinjie.MyButtonBar
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:background=&quot;#eee&quot;
+        customView:tab1Icon=&quot;@drawable/icon&quot;
+        customView:tab2Icon=&quot;@drawable/icon&quot;
+        customView:tabIconWidth=&quot;26dp&quot;
+        customView:tabIconHeight=&quot;26dp&quot;
+        customView:tab1Text=&quot;tab1&quot;
+        customView:tab2Text=&quot;tab2&quot;
+        customView:tabTextColor=&quot;@android:color/holo_orange_dark&quot;
+        customView:tabTextSize=&quot;6sp&quot;
+        /&gt;
+</code></pre><h3 id="创建全新控件"><a href="#创建全新控件" class="headerlink" title="创建全新控件"></a>创建全新控件</h3><p>过程：根据需要重写上文提到的几个方法，或者自定义属性等，重点在<br> onDraw() 自己绘制 View.<br>实现一个那啥….</p>
+<p> <img src="5892091-57b7fc5f00f39e20.png" alt="5892091-57b7fc5f00f39e20"></p>
+<p><strong>1）自定义属性</strong></p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;declare-styleable name=&quot;MyCustomeCircle&quot;&gt;
+        &lt;attr name=&quot;centerX&quot; format=&quot;float&quot;/&gt;
+        &lt;attr name=&quot;centerY&quot; format=&quot;float&quot;/&gt;
+        &lt;attr name=&quot;circleRadius&quot; format=&quot;float&quot;/&gt;
+        &lt;attr name=&quot;interval&quot; format=&quot;float&quot;/&gt;
+        &lt;attr name=&quot;circleShowText&quot; format=&quot;string&quot;/&gt;
+    &lt;/declare-styleable&gt;
+&lt;/resources&gt;
+</code></pre>
+<p><strong>2）继承 View, 读取属性值，绘制所需的 View.</strong></p>
+<pre><code class="java">/**
+ * author: Vecrates.
+ * describe: 全新的自定义控件
+ */
+public class MyCustomCircle extends View{
+    //内圆属性
+    private float mCenterX;
+    private float mCenterY;
+    private float mCircleRaduis;
+
+    private float mInterval; //弧与内圆间隔多大
+    private RectF mArcRecf;
+
+    private String mShowText;
+
+    public MyCustomCircle(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MyCustomeCircle);
+        //圆
+        mCenterX = ta.getFloat(R.styleable.MyCustomeCircle_centerX, 400);
+        mCenterY = ta.getFloat(R.styleable.MyCustomeCircle_centerY, 400);
+        mCircleRaduis = ta.getFloat(R.styleable.MyCustomeCircle_circleRadius, 100);
+
+        //弧
+        mInterval = ta.getFloat(R.styleable.MyCustomeCircle_interval, 50);
+        //弧的外接矩形
+        mArcRecf = new RectF(
+                (float)(mCenterX - mCircleRaduis - mInterval),
+                (float)(mCenterY - mCircleRaduis - mInterval),
+                (float)(mCenterX + mCircleRaduis + mInterval),
+                (float)(mCenterY + mCircleRaduis + mInterval)
+        );
+
+        mShowText = ta.getString(R.styleable.MyCustomeCircle_circleShowText);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        Paint circlePaint = new Paint();
+        circlePaint.setColor(Color.GREEN);
+        circlePaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(mCenterX, mCenterY, mCircleRaduis, circlePaint);
+
+        Paint arcPaint = new Paint();
+        arcPaint.setColor(Color.BLUE);
+        arcPaint.setAntiAlias(true); //无锯齿
+        arcPaint.setStrokeWidth(40); //线宽度
+        arcPaint.setStyle(Paint.Style.STROKE);
+        canvas.drawArc(mArcRecf, 270, 280, false, arcPaint);
+
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.BLUE);
+        textPaint.setTextSize(90);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText(mShowText, mCenterX, mCenterY+90/2, textPaint);
+    }
+
+}
+</code></pre>
+<p><strong>3）使用</strong></p>
+<pre><code class="xml">    &lt;cn.vecrates.androidjinjie.MyCustomCircle
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        customView:centerX=&quot;400&quot;
+        customView:centerY=&quot;400&quot;
+        customView:circleRadius=&quot;200&quot;
+        customView:interval=&quot;100&quot;
+        customView:circleShowText=&quot;6666步&quot;
+        /&gt;
+</code></pre>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/12/14/【Android笔记】-ViewDragHelper构建简单的侧滑菜单/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/12/14/【Android笔记】-自定义-ViewGroup/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="vecrates's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        vecrates@gmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="vecrates@gmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/Java/">Java<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/编程基础/">编程基础<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="图库">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                图库
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>vecrates.cn
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

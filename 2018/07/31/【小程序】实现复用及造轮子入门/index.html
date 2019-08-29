@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            【小程序】实现复用及造轮子入门 | 
+        
+        vecrates.cn
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="blogger">
+    <meta name="keywords" content=",小程序">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #70acb1;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #5a92af !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #5a92af !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #5a92af !important;
+  }
+
+  .toTop {
+    background: #59606d !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #59606d;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #59606d;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #59606d;
+  }
+
+  .post-toc a:hover {
+    color: #70acb1;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F6F6F6;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="vecrates.cn">
+    <meta name="msapplication-starturl" content="http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="vecrates.cn">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="WB9KAvlwYg0aM7u4nHFRKeL_vSIEsPIcxgxhCFtJfNM" />
+    <meta name="baidu-site-verification" content="5ySrkHIIsn" />
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="【小程序】实现复用及造轮子入门 | vecrates.cn">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="blogger">
+    <meta property="og:article:tag" content="小程序"> 
+
+    
+        <meta property="article:published_time" content="Tue Jul 31 2018 22:00:27 GMT+0800">
+        <meta property="article:modified_time" content="Tue Aug 07 2018 22:46:16 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/index.html",
+    "headline": "【小程序】实现复用及造轮子入门",
+    "datePublished": "Tue Jul 31 2018 22:00:27 GMT+0800",
+    "dateModified": "Tue Aug 07 2018 22:46:16 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "vecrates",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "举杯邀明月，同笑万古痴"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "vecrates.cn",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",小程序",
+    "description": "blogger",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#template-和-component-的不同"><span class="post-toc-number">1.</span> <span class="post-toc-text">template 和 component 的不同</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#template-复用弹窗"><span class="post-toc-number">2.</span> <span class="post-toc-text">template 复用弹窗</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-定义"><span class="post-toc-number">2.0.0.1.</span> <span class="post-toc-text">1. 定义</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-使用"><span class="post-toc-number">2.0.0.2.</span> <span class="post-toc-text">2. 使用</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#component-造简单的轮子"><span class="post-toc-number">3.</span> <span class="post-toc-text">component 造简单的轮子</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#自定义导航栏"><span class="post-toc-number">3.0.1.</span> <span class="post-toc-text">自定义导航栏</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#："><span class="post-toc-number">4.</span> <span class="post-toc-text">++：</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/vateral-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                【小程序】实现复用及造轮子入门
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>vecrates</strong>
+        <span>7月 31, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/小程序/">小程序</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=【小程序】实现复用及造轮子入门&url=http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/index.html&pic=http://www.vecrates.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=vecrates.cn&title=【小程序】实现复用及造轮子入门&summary=blogger&pics=http://www.vecrates.cn/img/favicon.png&url=http://www.vecrates.cn/2018/07/31/【小程序】实现复用及造轮子入门/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p> 小程序实现可以通过 template 和 component 两种方式实现代码的复用，以减少不必要的工作量。template 被官方称为模块，在 <code>xml</code> 和 <code>css</code> 中定义代码片段，然后可以在其他页面使用，事实上，template 像是复制粘贴的另一种形式，只是把复制粘贴的操作使用<code>&lt;template&gt;</code> 标签来代替，减少了页面的简洁程度，方便维护（有点像 android 中的 <code>&lt;include&gt;</code> ）。比起template， component 实现的自定义组件，可以进行自己的逻辑处理，并像官方提供的组件一样去使用。</p>
+<h2 id="template-和-component-的不同"><a href="#template-和-component-的不同" class="headerlink" title="template 和 component 的不同"></a>template 和 component 的不同</h2><ul>
+<li><p>component 和普通的 page 一样有 xml、css、json 和 js 文件，template 只有 xml 和 css 文件</p>
+</li>
+<li><p>component 可以处理点击事件，tempalte 需要在使用者的 js 中定义</p>
+</li>
+<li><p>template 的动态数据均来自使用者的传递，component 不是</p>
+</li>
+<li><p>对于 template，在使用者的 css 文件中定义的样式会覆盖模块中定义的样式，而对于 component，app 的样式和使用者的样式均不会影响到组件内部（除非使用<code>externalClasses</code> ）</p>
+</li>
+<li><p>component 只能使用类选择器 ，template 没有限制</p>
+<p><strong>……</strong></p>
+</li>
+</ul>
+<h2 id="template-复用弹窗"><a href="#template-复用弹窗" class="headerlink" title="template 复用弹窗"></a>template 复用弹窗</h2><p> template 通常在复用的部分逻辑处理比较少的情况下使用，如在应用中有一些 UI 一样、但文字内容不一样的提示弹框，这时可以使用 template 来达到复用的目的。</p>
+<h5 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h5><p>建立一个目录，在目录下建立 xml 和 css 文件，编辑弹框的 xml 和 css 文件和编辑普通的 page 基本没有什么差别，唯一不同的是在 xml 的最外层需要套上一个 <code>&lt;template&gt;</code> 标签，在该标签中定义 template 的 name 属性，这个 name 属性将成为该弹框的标识。另外 template 中动态数据通过引用者传入。</p>
+<pre><code class="xml">&lt;!--tip-dialog.wxml--&gt;
+&lt;template name=&quot;tip-dialog&quot;&gt;
+    &lt;view class=&#39;container&#39;&gt;
+        &lt;view class=&#39;tip-content&#39;&gt;
+            &lt;image class=&#39;content-icon&#39; src=&quot;{{icon}}&quot;&gt;&lt;/image&gt;
+            &lt;text class=&#39;content-text&#39;&gt;{{text}}&lt;/text&gt;
+        &lt;/view&gt;
+        &lt;view class=&#39;tip-btn&#39; bindtap=&#39;clickedBtn&#39;&gt;哦~&lt;/view&gt;
+    &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h5><ul>
+<li><p>xml 文件中使用 <code>&lt;import&gt;</code> 标签引入模板</p>
+<pre><code class="xml">&lt;import src=&quot;/pages/tip-dialog/tip-dialog&quot;/&gt;
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>使用 <code>&lt;template&gt;</code> 标签指明模板，并传入动态数据，data 属性中的 <strong>…</strong> 是展开符号，将 js 中的对象属性展开传递到模板，使模板中可以直接通过属性名称使用，而不是对象.属性</p>
+<pre><code class="xml">&lt;template is=&quot;tip-dialog&quot; data=&quot;{{...tipData}}&quot; wx:if=&quot;{{showTip}}&quot;/&gt;
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>css 文件中使用 <code>@import</code> 引入模板的 css 文件，完成</p>
+<pre><code class="css">@import &quot;/pages/tip-dialog/tip-dialog&quot;;
+</code></pre>
+</li>
+</ul>
+<h2 id="component-造简单的轮子"><a href="#component-造简单的轮子" class="headerlink" title="component 造简单的轮子"></a>component 造简单的轮子</h2><p> 微信从 1.6.3开始支持自定义组件，自定义组件拥有拥有和 page 一样的四个文件，其中 js 文件的结构有一些差异，不过写法基本没什么变化。创建自定义组件的步骤如下：</p>
+<ul>
+<li>新建目录，右键建立 component</li>
+</ul>
+<ul>
+<li>component.json</li>
+</ul>
+<pre><code class="json">{
+  &quot;component&quot;: true
+}
+</code></pre>
+<ul>
+<li><p>和编辑普通的页面一样编辑组件，注意是 js 文件的一些差异</p>
+<ul>
+<li><strong>properties</strong>：是组件对外开放的属性，当在使用者 xml 文件中使用该组件时，可以为这些属性传值达到改变组件的目的</li>
+<li><strong>data</strong>：内部数据，和 page 的 data 一样，和 properties 不同的是它是对内的</li>
+<li><strong>mthods</strong>：组件的自定义方法都定义在其内部，亲测定义在外部无法识别</li>
+<li><strong>externalClasses</strong>：组件外部样式，组件内部的样式是不受 app 和 使用者的 css 影响的，如果有组件内部有一些样式希望在使用者使用时才决定，那么久可以通过 <strong>externalClasses</strong> 去实现</li>
+<li><strong>behaviors</strong>：用于组件间的引用（详情：<a href="!https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/relations.html">文档-组件间的关系</a>)</li>
+<li><strong>生命周期</strong> ：created()、attached()、ready()、moved()、dettach()</li>
+</ul>
+<pre><code class="js">Component({
+  //选项
+  options: {
+    multipleSlots: true // 启用多slot（插槽）支持
+  },
+  properties: {
+    //外部属性
+    text: {
+      type: String, //类型
+      value: &#39;default value&#39;, //默认值
+      observer: &#39;方法名&#39; //当数据发生变化时调用
+    }
+  },
+  //外部样式
+  externalClasses: [&#39;text-class&#39;],
+  data: {
+    // 内部数据
+    someData: {}
+  },
+  //生命周期
+  attached: function(){},
+  moved: function(){},
+  detached: function(){},
+  methods: {
+    // 自定义方法
+    customMethod: function(){}
+  }
+})
+</code></pre>
+</li>
+<li><p>使用者 json</p>
+<pre><code class="json">{
+    &quot;usingComponents&quot;: {
+        //组件名-路径
+        &quot;component-name&quot;: &quot;component-path&quot;,
+    }
+}
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>使用者 xml</p>
+<pre><code class="xml">&lt;component-name property=&quot;&quot; /&gt;
+</code></pre>
+</li>
+</ul>
+<p><em>官方文档：<a href="!https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/">文档-自定义组件</a></em></p>
+<h4 id="自定义导航栏"><a href="#自定义导航栏" class="headerlink" title="自定义导航栏"></a>自定义导航栏</h4><p> 小程序官方提供的导航栏可以控制的部分太少，很多时候并不能满足项目的需求，从 1.9.1 开始，微信开始支持自定义导航栏，这里使用 component 实现一个导航栏。功能如下：</p>
+<ul>
+<li><em>导航栏有标题，返回键，分割线</em></li>
+<li><em>导航栏高度自适应，标题和返回键始终垂直居中</em></li>
+<li><em>导航栏可由使用者指定背景颜色或图片</em></li>
+<li><em>标题的内容和样式对使用者开放</em></li>
+<li><em>返回键可显示和不显示，按钮的 icon 可由使用者提供，且提供默认 icon，点击可返回上一个界面，提供返回按钮的监听事件</em></li>
+<li><em>分割线可显示和不显示，使用者可决定颜色</em></li>
+</ul>
+<pre><code class="xml">&lt;!--nav-bar.wxml--&gt;
+&lt;view class=&#39;nav-container&#39; style=&#39;height:{{customeHeight? navHeight:height}}px;background:{{bgColor}};&#39;&gt;
+    &lt;image class=&quot;nav-background-img&quot; src=&#39;{{imageBg}}&#39; style=&#39;height:{{height}}px;&#39; mode=&#39;top&#39; wx:if=&quot;{{useImageBg}}&quot;&gt;&lt;/image&gt;
+    &lt;image class=&#39;nav-back&#39; src=&#39;{{backIcon}}&#39; wx:if=&#39;{{showBack}}&#39; bindtap=&#39;clickedNavBarBack&#39;/&gt;
+    &lt;view class=&#39;nav-title-view&#39; style=&#39;margin-bottom: {{marginB}}rpx;&#39;&gt;
+        &lt;view class=&#39;nav-title-class&#39;&gt;{{title}}&lt;/view&gt;
+    &lt;/view&gt;
+    &lt;view class=&#39;nav-line&#39; style=&#39;background-color:{{lineColor}};&#39; wx:if=&quot;{{showLine}}&quot;&gt;&lt;/view&gt;
+&lt;/view&gt;
+</code></pre>
+<p><strong>tips:</strong></p>
+<ul>
+<li>不使用 <em>externalClasses</em> 的情况下，组件使用者 css 不能覆盖组件中的 css</li>
+<li>在使用 <em>externalClasses</em> 的情况下，组件内部 xss 中对于该 class 样式失效，但是 wxml 中 style 属性指定的样式仍有效 </li>
+</ul>
+<pre><code class="js">//nav-bar.js
+Component({
+    externalClasses: [&#39;nav-title-class&#39;],
+    properties: {
+        //指定导航栏高度，不指定将使用默认的计算方式
+        navHeight: {
+            type: Number,
+            value: -1,
+            observer: &#39;navHeightChange&#39;
+        },
+        //导航栏标题
+        title: {
+            type: String,
+            value: &quot;VUI&quot;
+        },
+        //是否显示返回键
+        showBack: {
+            type: Boolean,
+            value: true
+        },
+        //背景颜色，默认 #fff
+        bgColor: {
+            type: String,
+            value: &#39;&#39;
+        },
+        //背景图片，默认不使用，使用后将覆盖掉背景颜色
+        imageBg: {
+            type: String,
+            value: &#39;&#39;,
+            observer: &#39;imageBgChange&#39;
+        },
+        //指定返回按钮的 Icon
+        backIcon: {
+            type: String,
+            value: DEFAULT_BACKICON
+        },
+        //导航栏底部分割线颜色 
+        lineColor: {
+            type: String,
+            value: &quot;#ccc&quot;
+        }, 
+        //是否显示底部分割线
+        showLine: {
+            type: Boolean,
+            value: true
+        }
+    },
+    data: {
+        height: 64,
+        useImageBg: false,
+        customHeight: false,
+        marginB: 10
+    },
+    created: function() {
+        _this = this
+    },
+    /**
+     * ready 开始可以获得控件信息
+     */
+    ready: function() {
+        let height = _this.getNavBarHeight()
+        _this.calculatePosiontion(height)
+    },
+    methods: {
+        clickedNavBarBack: function() {
+            console.log(&quot;navBar.clikedBack()&quot;)
+            wx.navigateBack({})
+            this.triggerEvent(&quot;tapBack&quot;) //使用者可以绑定这个方法来监听返回键点击事件(bindtapBack)
+        },
+        calculatePosiontion: function (height) {
+            let sys = wx.getSystemInfoSync()
+            let query = wx.createSelectorQuery().in(this)
+            query.select(&quot;.nav-title-view&quot;).boundingClientRect()
+            query.exec(function (rects) {
+                let titleH = rects[0].height
+                let realH = height - sys.statusBarHeight
+                let marginB = (realH - titleH) / 2  
+                _this.setData({
+                    height: height,
+                    marginB: marginB
+                })
+            })
+        },
+        getNavBarHeight: function () {
+            let height = 64
+            let res = wx.getSystemInfoSync();
+            let system = res.system
+            if(system.search(&#39;android&#39;) != -1) {
+                height = 68
+            } else {
+                let model = res.model
+                if (model.search(&#39;iPhone X&#39;) != -1) {
+                    height = 88
+                } else if (model.search(&#39;iPad&#39;) != -1) {
+                    height = 100
+                }
+            }
+            return height
+        },
+        navHeightChange: function (newVal, oldVal) {
+            _this.setData({
+                customeHeight: true
+            })
+        },
+        imageBgChange: function(newVal, oldVal) {
+            if(newVal != &#39;&#39;) {
+                _this.setData({
+                    useImageBg: true
+                })
+            }
+        }
+
+    }
+})
+</code></pre>
+<p>对于标题栏高度，使用 px 作为单位，android 统一为 68，iPhone X 为 88，iPhone 其他为 64。对于居中，首先将标题和返回按钮固定在导航栏底部，然后计算 margin-bottom 的值（<em>导航栏高度包括了状态栏的高度</em>）。</p>
+<pre><code class="xml">&lt;!-- index.wxml --&gt;
+&lt;nav-bar show-back=&quot;{{true}}&quot; title=&quot;VUI&quot; nav-title-class=&quot;nav-title-class&quot; line-color=&quot;#aaa&quot; showLine=&quot;{{showNavLine}}&quot; bindtapBack=&quot;tapBack&quot;&gt;&lt;/nav-bar&gt;
+</code></pre>
+<p><strong>效果</strong>：</p>
+<p> <img src="vui.png" alt="vui"></p>
+<h2 id="："><a href="#：" class="headerlink" title="++："></a>++：</h2><ul>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component" target="_blank" rel="noopener">文档-自定义组件</a></li>
+</ul>
+<ul>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html" target="_blank" rel="noopener">文档-组件模板和样式</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2019/08/01/【OpenGL-ES】EGL/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/04/04/【Android】OkHttp内部工作原理/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="vecrates's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        vecrates@gmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="vecrates@gmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/Java/">Java<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/编程基础/">编程基础<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="图库">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                图库
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>vecrates.cn
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

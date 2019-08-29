@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            【Android】Service 启动过程 | 
+        
+        vecrates.cn
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="blogger">
+    <meta name="keywords" content=",Android Service">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #70acb1;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #5a92af !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #5a92af !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #5a92af !important;
+  }
+
+  .toTop {
+    background: #59606d !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #59606d;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #59606d;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #59606d;
+  }
+
+  .post-toc a:hover {
+    color: #70acb1;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F6F6F6;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="vecrates.cn">
+    <meta name="msapplication-starturl" content="http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="vecrates.cn">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="WB9KAvlwYg0aM7u4nHFRKeL_vSIEsPIcxgxhCFtJfNM" />
+    <meta name="baidu-site-verification" content="5ySrkHIIsn" />
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="【Android】Service 启动过程 | vecrates.cn">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="blogger">
+    <meta property="og:article:tag" content="Android Service"> 
+
+    
+        <meta property="article:published_time" content="Sat Jan 06 2018 10:02:10 GMT+0800">
+        <meta property="article:modified_time" content="Fri Aug 03 2018 23:11:23 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/index.html",
+    "headline": "【Android】Service 启动过程",
+    "datePublished": "Sat Jan 06 2018 10:02:10 GMT+0800",
+    "dateModified": "Fri Aug 03 2018 23:11:23 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "vecrates",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "举杯邀明月，同笑万古痴"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "vecrates.cn",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",Android Service",
+    "description": "blogger",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#startService-启动过程"><span class="post-toc-number">2.</span> <span class="post-toc-text">startService() 启动过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bindService-启动过程"><span class="post-toc-number">3.</span> <span class="post-toc-text">bindService() 启动过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考或拓展"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考或拓展</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/vateral-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                【Android】Service 启动过程
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>vecrates</strong>
+        <span>1月 06, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Android-Service/">Android Service</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=【Android】Service 启动过程&url=http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/index.html&pic=http://www.vecrates.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=vecrates.cn&title=【Android】Service 启动过程&summary=blogger&pics=http://www.vecrates.cn/img/favicon.png&url=http://www.vecrates.cn/2018/01/06/【Android笔记】Service 启动过程/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p> 同为四大组件之一，Service 的启动流程和 Activity 有很多的相似之处，它们的启动都需要系统进程的服务端对象 AMS（ActivityManagerService） 的参与，也都使用 Binder（Binder 对象也一致）进行 IPC 等。</p>
+<p> Service 有两种启动方式：<code>startService()</code> 和 <code>bindService()</code> ，两者的区别是后者可与启动者进行交互，而</p>
+<p>前者不行，所以两种启动方式的启动过程是有一些区别的。</p>
+<h2 id="startService-启动过程"><a href="#startService-启动过程" class="headerlink" title="startService() 启动过程"></a>startService() 启动过程</h2><p> <img src="Service_start方式启动.png" alt="Service_start方式启动"></p>
+<p> 上图为以 <code>startService()</code> 方式启动 Service 的流程，可以看到客户端的参与者和 Activity 极其相似，IPC 使用的 Binder 对象则是一致的，且而服务端也同需要 AMS 的参与。</p>
+<p> 由于 Service 继承自 ContextWrapper，所以 <code>startService()</code> 调用的是 ContextWrapper 的方法。在 <code>startService</code> 中是直接调用了 Context 的 <code>startService()</code> ，Context 的实现类是 ContextImpl，ContextImpl 则是在 Activity 创建绑定上下文之前创建的（在 <code>perfromLaunchActivity()</code> 中)。</p>
+<p> ContextImpl 的 <code>startService()</code> 中直接调用了自身的 <code>startServiceCommon()</code> 方法：</p>
+<pre><code class="java">    private ComponentName startServiceCommon(Intent service, UserHandle user) {
+        try {
+            validateServiceIntent(service);
+            service.prepareToLeaveProcess(this);
+            //这里调用了 AMS 的方法
+            ComponentName cn = ActivityManagerNative.getDefault().startService(
+                mMainThread.getApplicationThread(), service, service.resolveTypeIfNeeded(
+                            getContentResolver()), getOpPackageName(), user.getIdentifier());
+            if (cn != null) {
+                if (cn.getPackageName().equals(&quot;!&quot;)) {
+                    throw new SecurityException(
+                            &quot;Not allowed to start service &quot; + service
+                            + &quot; without permission &quot; + cn.getClassName());
+                } else if (cn.getPackageName().equals(&quot;!!&quot;)) {
+                    throw new SecurityException(
+                            &quot;Unable to start service &quot; + service
+                            + &quot;: &quot; + cn.getClassName());
+                }
+            }
+            return cn;
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+</code></pre>
+<p> 代码中的 <code>ActivityManagerNative.getDetault()</code>  得到的是 AMS 在客户端的代理 ActivityManagerProxy，它实现了 IActivityManager 接口。这里所传的参数：</p>
+<ul>
+<li>IApplicationThread（caller），它继承了跨进程同样接口 IInterface，它的实现类是 ApplicationThread，用于服务端向客户端返回信息</li>
+<li>Intent（service），携带 Service 信息</li>
+</ul>
+<p>所以以上流程已经完成了启动 Service 前的准备工作，启动流程将从这里传到系统进程的 AMS 当中。</p>
+<pre><code class="java">    public ComponentName startService(IApplicationThread caller, Intent service,
+            String resolvedType, String callingPackage, int userId)
+            throws TransactionTooLargeException {
+        ...
+            ComponentName res = mServices.startServiceLocked(caller, service,
+                    resolvedType, callingPid, callingUid, callingPackage, userId);
+        ...
+    }
+</code></pre>
+<p> <code>mService</code> 是一个 ActiveService 对象，负责辅助 AMS 管理 Service 的启动、绑定和停止等，这里调用了它的 <code>startServiceLocked()</code> 方法：</p>
+<pre><code class="java">    ComponentName startServiceLocked(IApplicationThread caller, Intent service, String resolvedType, int callingPid, int callingUid, String callingPackage, final int userId)
+            throws TransactionTooLargeException {
+      ...
+        //根据 service（Intent）检索是否已经存在 ServiceRecord，不存在创建新的 
+        ServiceLookupResult res =
+            retrieveServiceLocked(service, resolvedType, callingPackage,
+                    callingPid, callingUid, userId, true, callerFg, false);
+      ...
+        //ServiceRecord 用于描述一个 Service
+        ServiceRecord r = res.record;
+      ...
+        return startServiceInnerLocked(smap, service, r, callerFg, addToStarting);
+    }
+</code></pre>
+<p> 这里 ActiveService 调用了自身的 <code>startServiceInnerLocked()</code> 方法，在该方法内部又调用了自身的 <code>bringUpServiceLocked()</code> ，接着用调用了 <code>realStartServiceLocked()</code>：</p>
+<pre><code class="java">    private final void realStartServiceLocked(ServiceRecord r,
+            ProcessRecord app, boolean execInFg) throws RemoteException {
+      ...
+        //调用了 ApplicationThreadProxy 的方法
+            app.thread.scheduleCreateService(r, r.serviceInfo,
+                    mAm.compatibilityInfoForPackageLocked(r.serviceInfo.applicationInfo),
+                    app.repProcState);
+      ...
+        //这个方法里面也是一个 Binder 调用，调用了 Service 的 startCommand() 等
+        sendServiceArgsLocked(r, execInFg, true);
+      ...
+    }
+
+   private final void sendServiceArgsLocked(ServiceRecord r, boolean execInFg,
+            boolean oomAdjusted) throws TransactionTooLargeException {
+      ...
+            //同样调用了 ApplicationThreadProxy 的方法
+            r.app.thread.scheduleServiceArgs(r, si.taskRemoved, si.id, flags, si.intent);
+      ...
+    }
+</code></pre>
+<p> 上面这个方法中，<code>app.thread</code> 是一个 ApplicationThreadProxy 对象，它是 ApplicationThreadNative 在服务端的代理，它继承了 Binder 及实现了 IApplicationThread 接口，而 ApplicationThreadNative 类是一个抽象类，ApplicationThread 继承了 ApplicationThreadNative，故而 ApplicationThread 是 IApplicationThread 的最终实现者。</p>
+<p> 所以执行到这儿，服务端将通过 Binder 将信息返回给客户端 ApplicationThread，由于此时是在 Binder 线程池中的线程运行，故先使用 Hnadler 切换到主线程，最后执行：</p>
+<pre><code class="java">    private void handleCreateService(CreateServiceData data) {
+      ...
+        //1. 使用加载器创建 Service 实例
+        java.lang.ClassLoader cl = packageInfo.getClassLoader();
+        service = (Service) cl.loadClass(data.info.name).newInstance();
+      ...
+        //2. 创建上下文对象
+        ContextImpl context = ContextImpl.createAppContext(this, packageInfo);
+        context.setOuterContext(service);
+        //3. 创建 Application 实例
+        Application app = packageInfo.makeApplication(false, mInstrumentation);
+        //4. 为 Service 绑定上下文，并调用器 onCreate() 方法
+        service.attach(context, this, data.info.name, data.token, app,
+                    ActivityManagerNative.getDefault());
+        service.onCreate();
+        // 放到了一个 map 中存储，可以看到下面一个方法从 map 从取了出来
+        mServices.put(data.token, service);
+      ...
+    }
+
+    private void handleServiceArgs(ServiceArgsData data) {
+        Service s = mServices.get(data.token);
+        ...
+        res = s.onStartCommand(data.args, data.flags, data.startId);
+        ...
+    }
+</code></pre>
+<p> <code>handleCreateService()</code> 是 <code>scheduleCreateService()</code> 调用线上的方法，主要完成：</p>
+<ul>
+<li>使用加载器创建 Service 实例</li>
+<li>创建上下文对象</li>
+<li>创建 Application 实例</li>
+<li>为 Service 绑定上下文，并调用器 onCreate() 方法</li>
+</ul>
+<p> <code>handleServiceArgs()</code> 是 <code>scheduleServiceArgs()</code> 调用线上的方法，主要调用了 Service 的 <code>onStartSCommand()</code> 方法。</p>
+<h2 id="bindService-启动过程"><a href="#bindService-启动过程" class="headerlink" title="bindService() 启动过程"></a>bindService() 启动过程</h2><p>   <img src="Service_bindService启动.png" alt="Service_bindService()"></p>
+<p> 上图为以 <code>bindService()</code> 方式启动 Service 的过程，大体上可以分为<strong>创建</strong>和<strong>绑定</strong>两个过程，创建过程与以 <code>startService()</code> 方式启动的过程是大致是一样的，这里主要记录绑定的过程。</p>
+<p> 在使用 <code>bindService()</code> 时，通常会传入一个 ServiceConnection 对象，当调用者和 Service 绑定成功时，调用该 ServiceConnection 对象的 <code>onServiceConnected()</code> 。这个 ServiceConnection 对象会在 <code>bindServiceCommon()</code> 中被转化为 ServiceDispatcher.InnerConnection 对象：</p>
+<pre><code class="java">//ContextImpl.class
+private boolean bindServiceCommon(Intent service, ServiceConnection conn, int flags, Handler
+            handler, UserHandle user) {
+    IServiceConnection sd;
+  ...
+    //将 ServiceConnetion 转化为 IServiceConnection（实际返回的是 InnerConnection）
+    sd = mPackageInfo.getServiceDispatcher(conn, getOuterContext(), handler, flags);
+  ...
+    //转到 AMS 执行
+    int res = ActivityManagerNative.getDefault().bindService(
+    mMainThread.getApplicationThread(), getActivityToken(), service,
+    service.resolveTypeIfNeeded(getContentResolver()),
+    sd, flags, getOpPackageName(), user.getIdentifier());
+  ...
+}
+
+public final IServiceConnection getServiceDispatcher(ServiceConnection c,
+            Context context, Handler handler, int flags) {
+  synchronized (mServices) {
+    LoadedApk.ServiceDispatcher sd = null;
+    ArrayMap&lt;ServiceConnection, LoadedApk.ServiceDispatcher&gt; map =                                         mServices.get(context);
+    //查找是否存在对应的 ServiceDispatcher 
+    if (map != null) {
+      sd = map.get(c);
+    }
+    if (sd == null) {
+      sd = new ServiceDispatcher(c, context, handler, flags);
+      if (map == null) {
+        map = new ArrayMap&lt;ServiceConnection, LoadedApk.ServiceDispatcher&gt;();
+        mServices.put(context, map);
+      }
+      //ServiceConnection - ServiceDispatcher 键值对
+      map.put(c, sd);
+    } else {
+      sd.validate(context, handler);
+    }
+    return sd.getIServiceConnection();
+  }
+ }
+
+private final ServiceDispatcher.InnerConnection mIServiceConnection;
+    IServiceConnection getIServiceConnection() {
+    return mIServiceConnection;
+}
+
+private static class InnerConnection extends IServiceConnection.Stub {}  
+static abstract class Stub extends android.os.Binder implements                     android.app.IServiceConnection  {}
+</code></pre>
+<p> ServiceConnection 对象和 ServiceDispatcher 对象组成键值对，存储在一个 ArrayMap 中，ServiceDispatcher 中持有 InnerConnection 对象，InnerConnection 是 ServiceDispatcher 的内部类，继承自 Binder。</p>
+<p> 当服务转到 AMS 后，除了绑定操作外，其他的执行过程和 <code>startService()</code> 基本一致。而绑定过程从 <code>bindServiceLocked()</code> 开始，其中调用了 <code>requestServiceBindingLocked()</code> ：</p>
+<pre><code class="java">private final boolean requestServiceBindingLocked(ServiceRecord r, IntentBindRecord i,
+            boolean execInFg, boolean rebind) throws TransactionTooLargeException {
+  ...
+      r.app.thread.scheduleBindService(r, i.intent.getIntent(), rebind, r.app.repProcState);
+  ...
+}
+</code></pre>
+<p> 在 <code>requestServiceBindingLocked()</code> 中，调用了 ApplicationThread 的 <code>scheduleBindService()</code> ，<code>scheduleBindService()</code> 内部又使用 Handler 切换线程，最后调用了 <code>handleBindService()</code> ：</p>
+<pre><code class="java">    private void handleBindService(BindServiceData data) {
+        Service s = mServices.get(data.token);
+      ...
+        IBinder binder = s.onBind(data.intent);
+        //又交给了 AMS 
+        ActivityManagerNative.getDefault().publishService(data.token, data.intent, binder);
+      ...
+    }
+</code></pre>
+<p> 这里首先调用了 Service 的 <code>onBind()</code> 方法，<code>onBind()</code> 返回 IBinder 对象之后再交给系统进程的 AMS 执行，AMS 又调用了 ActiveService 的 <code>publishServiceLocked()</code> ：</p>
+<pre><code class="java">    void publishServiceLocked(ServiceRecord r, Intent intent, IBinder service) {
+      ...
+          c.conn.connected(r.name, service);
+      ...
+    }
+</code></pre>
+<p> 这里的 <code>c.conn</code> 就是上文提到的 InnerConnection，这里调用了它的 <code>connected()</code> 方法：</p>
+<pre><code class="java">//InnerConnection.class
+public void connected(ComponentName name, IBinder service) throws RemoteException {
+  LoadedApk.ServiceDispatcher sd = mDispatcher.get();
+  if (sd != null) {
+    //由 InnerConnection 对象发起调用
+    sd.connected(name, service);
+  }
+}
+
+//ServiceDispatcher.class
+public void connected(ComponentName name, IBinder service) {
+  if (mActivityThread != null) {
+    mActivityThread.post(new RunConnection(name, service, 0));
+  } else {
+    doConnected(name, service);
+  }
+}
+
+public void doConnected(ComponentName name, IBinder service) {
+  ...
+  // If there was an old service, it is not disconnected.
+  if (old != null) {
+    //ServiceConnection 的 onServiceDisconnection 被调用
+    mConnection.onServiceDisconnected(name);
+  }
+  // If there is a new service, it is now connected.
+  if (service != null) {
+    //ServiceConnection 的 onServiceConnection 被调用
+    mConnection.onServiceConnected(name, service);
+  }
+}
+</code></pre>
+<p> 当调用者与 Service 建立连接后，系统进程调用 InnerConnetion 对象的 <code>connetion()</code> ，最后通过 ServiceDispatcher 调用 ServiceConnetion 的 <code>onServiceConnetion()</code> 或者 <code>onServiceDisconnetion()</code> ，InnerConnection 的调用有可能是跨进程的，故而需要 InnerConnetion 继承自 Binder。</p>
+<h2 id="参考或拓展"><a href="#参考或拓展" class="headerlink" title="参考或拓展"></a>参考或拓展</h2><ul>
+<li>《Android 开发艺术探索》</li>
+</ul>
+<ul>
+<li><a href="http://gityuan.com/2016/03/06/start-service/" target="_blank" rel="noopener">startService启动过程分析</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/04/04/【Android】OkHttp内部工作原理/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/12/30/【Android笔记】Activity 的创建过程/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="vecrates's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        vecrates@gmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="vecrates@gmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Android/">Android<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/Java/">Java<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/编程基础/">编程基础<span class="sidebar_archives-count">2</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/gallery" title="图库">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                图库
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="关于">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>vecrates.cn
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
